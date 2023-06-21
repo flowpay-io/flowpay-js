@@ -133,3 +133,5 @@ export const calculateInstallmentPlan = (
     installments: installments,
   };
 };
+
+module.exports = {calculateInstallmentPlan};
