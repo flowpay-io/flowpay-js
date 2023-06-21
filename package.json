@@ -1,6 +1,6 @@
 {
   "name": "@flowpay/flowpay-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flowpay.js",
   "main": "dist/flowpay.js",
   "module": "dist/flowpay.esm.js",
