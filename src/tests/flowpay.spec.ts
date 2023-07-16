@@ -1,4 +1,4 @@
-import {randomUUID} from 'crypto';
+import {v4 as uuid} from 'uuid';
 import {InstallmentPlan} from '../types/flowpay-js';
 import {calculateInstallmentPlan} from '../index';
 import {
@@ -47,7 +47,7 @@ const createOffer = (
 
 describe('Installment plan', () => {
   beforeAll(() => {
-    offer = createOffer(randomUUID(), [
+    offer = createOffer(uuid(), [
       {
         product: ProductType.M1,
         minAmount: 100000,

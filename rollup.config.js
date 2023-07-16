@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import ts from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
 
@@ -25,6 +25,6 @@ export default [
       {file: pkg.module, format: 'es'},
     ],
     plugins: PLUGINS,
-    external: ['moment', 'crypto'],
+    external: ['moment', 'uuid'],
   },
 ];

@@ -18,24 +18,27 @@ Calculate installment plan with specified product parameters given provided
 financing offer
 
 ```js
-var offer = {id: '1', products: [
-	{
-		product: 'M3',
-		minAmount: 100000,
-		maxAmount: 200000,
-		currency: 'CZK',
-		ratePerc: 1,
-		balloon: true,
-		installmentCount: 3,
-		prolongationEnabled: true,
-		postponeEnabled: false,
-		maxPostponeLength: 0,
-		maxProlongationLength: 2,
-		interestRateMultiplier: 1,
-		postponeFeeMultiplier: 1,
-		prolongationFeeMultiplier: 1,
-	}
-]}
+var offer = {
+  id: '1',
+  products: [
+    {
+      product: 'M3',
+      minAmount: 100000,
+      maxAmount: 200000,
+      currency: 'CZK',
+      ratePerc: 1,
+      balloon: true,
+      installmentCount: 3,
+      prolongationEnabled: true,
+      postponeEnabled: false,
+      maxPostponeLength: 0,
+      maxProlongationLength: 2,
+      interestRateMultiplier: 1,
+      postponeFeeMultiplier: 1,
+      prolongationFeeMultiplier: 1,
+    },
+  ],
+};
 
 const plan = flowpay.calculateInstallmentPlan(
   offer,

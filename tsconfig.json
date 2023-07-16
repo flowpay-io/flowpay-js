@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "allowJs": false,
-    "declaration": false,
+    "declaration": true,
     "removeComments": false,
     "strict": true,
     "forceConsistentCasingInFileNames": true
