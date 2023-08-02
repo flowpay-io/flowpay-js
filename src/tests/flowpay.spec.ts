@@ -1,6 +1,6 @@
 import {v4 as uuid} from 'uuid';
-import {InstallmentPlan} from '../types/flowpay-js';
-import {calculateInstallmentPlan} from '../index';
+import {InstallmentPlan} from '../types/model/fp-model';
+import {calculateInstallmentPlan} from '../calculateInstallmentPlan';
 import {
   PartnerOffer,
   PartnerOfferOfferProduct,
