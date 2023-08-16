@@ -16,9 +16,9 @@ export interface CreateFinancingRequest {
    * @minLength 1
    */
   customerId: string;
-  /** Identification of primary representative. The identity can be specified either by Flowpay's internal representative ID or by providing representative's personal data. */
+  /** Identification of primary representative. The identity must be specified by Flowpay's internal representative ID. Provided contact information is used to update representative's data in Flowpay's systems. */
   rep1: CreateFinancingRequestRepresentative;
-  /** Identification of 2nd representative. The identity can be specified either by Flowpay's internal representative ID or by providing representative's personal data. */
+  /** Identification of secondary representative. The identity must be specified by Flowpay's internal representative ID. Provided contact information is used to update representative's data in Flowpay's systems. */
   rep2?: CreateFinancingRequestRepresentative;
   /** Boolean flag indicating if any of customer's representatives are PEPs */
   pep: boolean;
@@ -61,12 +61,13 @@ export interface CustomerScoringCompleted {
    * @format uuid
    */
   customerId?: string;
+  /** Result of the scoring process */
   result?: CustomerScoringCompletedResult;
 }
 
 export enum CustomerScoringCompletedResult {
-  OFFER = 'OFFER',
-  UNQUALIFIED = 'UNQUALIFIED',
+  OFFER = "OFFER",
+  UNQUALIFIED = "UNQUALIFIED",
 }
 
 export interface Financing {
@@ -84,6 +85,12 @@ export interface Financing {
    * @minLength 1
    */
   customerId: string;
+  /**
+   * Identifier of the offer
+   * @format uuid
+   * @minLength 1
+   */
+  offerId: string;
   /**
    * Identifier of 1st representative
    * @format uuid
@@ -120,6 +127,12 @@ export interface Financing {
    * @example "2020-12-21T20:20:20.20202Z"
    */
   createdAt?: string;
+  /**
+   * Updated at
+   * @format ISO 8601
+   * @example "2020-12-21T20:20:20.20202Z"
+   */
+  updatedAt?: string;
 }
 
 export interface FinancingInstallment {
@@ -185,23 +198,63 @@ export interface FinancingOverview {
   from?: string;
 }
 
+export interface FinancingSignatures {
+  /**
+   * Identifier of the financing
+   * @format uuid
+   * @minLength 1
+   */
+  id: string;
+  /**
+   * Identifier of the customer
+   * @format uuid
+   * @minLength 1
+   */
+  customerId: string;
+  /**
+   * Identifier of 1st representative
+   * @format uuid
+   * @minLength 1
+   */
+  rep1Id: string;
+  /**
+   * Identifier of 2nd representative
+   * @format uuid
+   */
+  rep2Id?: string;
+  /** Flag indicating if the 1st representative has already signed the financing contract */
+  rep1Signed?: boolean;
+  /** Flag indicating if the 2nd representative has already signed the financing contract */
+  rep2Signed?: boolean;
+  /**
+   * Timestamp of 1st representative's signature
+   * @format date-time
+   */
+  rep1SignedAt?: string;
+  /**
+   * Timestamp of 2nd representative's signature
+   * @format date-time
+   */
+  rep2SignedAt?: string;
+}
+
 export enum FinancingState {
-  NEW = 'NEW',
-  SUBMITTED = 'SUBMITTED',
-  CHECKING = 'CHECKING',
-  WAIT_NEW_CONDITIONS = 'WAIT_NEW_CONDITIONS',
-  APPROVED = 'APPROVED',
-  CONTRACT_SENT = 'CONTRACT_SENT',
-  SIGNED = 'SIGNED',
-  PENDING_DISBURSEMENT = 'PENDING_DISBURSEMENT',
-  DISBURSED = 'DISBURSED',
-  PAID = 'PAID',
-  CLIENT_REFUSED = 'CLIENT_REFUSED',
-  NOT_APPROVED = 'NOT_APPROVED',
-  CANCELED = 'CANCELED',
-  FAILED = 'FAILED',
-  OVERDUE = 'OVERDUE',
-  COLLECTION = 'COLLECTION',
+  NEW = "NEW",
+  SUBMITTED = "SUBMITTED",
+  CHECKING = "CHECKING",
+  WAIT_NEW_CONDITIONS = "WAIT_NEW_CONDITIONS",
+  APPROVED = "APPROVED",
+  CONTRACT_SENT = "CONTRACT_SENT",
+  SIGNED = "SIGNED",
+  PENDING_DISBURSEMENT = "PENDING_DISBURSEMENT",
+  DISBURSED = "DISBURSED",
+  PAID = "PAID",
+  CLIENT_REFUSED = "CLIENT_REFUSED",
+  NOT_APPROVED = "NOT_APPROVED",
+  CANCELED = "CANCELED",
+  FAILED = "FAILED",
+  OVERDUE = "OVERDUE",
+  COLLECTION = "COLLECTION",
 }
 
 export interface FinancingStateChanged {
@@ -222,36 +275,38 @@ export interface FinancingStateChanged {
 }
 
 export enum InstallmentInstallmentState {
-  PENDING = 'PENDING',
-  PAID = 'PAID',
-  PLANNED = 'PLANNED',
-  OVERDUE = 'OVERDUE',
-  CANCELED = 'CANCELED',
-  RESCHEDULED = 'RESCHEDULED',
-  PROLONGED = 'PROLONGED',
+  PENDING = "PENDING",
+  PAID = "PAID",
+  PLANNED = "PLANNED",
+  OVERDUE = "OVERDUE",
+  CANCELED = "CANCELED",
+  RESCHEDULED = "RESCHEDULED",
+  PROLONGED = "PROLONGED",
 }
 
 export interface KycStarted {
   token?: string;
 }
 
-export interface KycVerificationResponse {
-  /**
-   * Identifier of the customer
-   * @format uuid
-   */
-  customerId?: string;
+export interface KycVerificationReviewed {
   /**
    * Identifier of the representative
    * @format uuid
    */
   repId?: string;
-  state?: KycVerificationResponseState;
+  /** KYC verification state */
+  state?: KycVerificationReviewedState;
+  /**
+   * Effective at
+   * @format ISO 8601
+   * @example "2020-12-21T20:20:20.20202Z"
+   */
+  effectiveAt?: string;
 }
 
-export enum KycVerificationResponseState {
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
+export enum KycVerificationReviewedState {
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
 }
 
 export interface MerchantBankAccount {
@@ -375,50 +430,50 @@ export interface PartnerOffer {
    * Unique identifier of the offer
    * @format uuid
    */
-  id?: string;
+  id: string;
   /** Available financing products */
-  products?: PartnerOfferOfferProduct[];
+  products: PartnerOfferOfferProduct[];
   /** A reason if the customer is not eligible for an offer */
   reason?: string;
 }
 
 export interface PartnerOfferOfferProduct {
   /** Product type */
-  product?: ProductType;
+  product: ProductType;
   /** Minimum financing amount for the given product in local currency */
-  minAmount?: number;
+  minAmount: number;
   /** Maximum financing amount for the given product in local currency */
-  maxAmount?: number;
+  maxAmount: number;
   /**
    * Currency as defined by ISO 4217 (https://en.wikipedia.org/wiki/ISO_4217)
    * @example "CZK"
    */
   currency: string;
   /** Fee rate percentage [%] */
-  ratePerc?: number;
+  ratePerc: number;
   balloon?: boolean;
   /**
    * Total number of installments
    * @format int32
    */
-  installmentCount?: number;
+  installmentCount: number;
   /** Indicating whether prolongation is available for this product */
-  prolongationEnabled?: boolean;
+  prolongationEnabled: boolean;
   /** Indicating whether postponement is available for this product */
-  postponeEnabled?: boolean;
+  postponeEnabled: boolean;
   /**
    * Maximum number of postponed installments
    * @format int32
    */
-  maxPostponeLength?: number;
+  maxPostponeLength: number;
   /**
    * Maximum number of installments for prolongation
    * @format int32
    */
-  maxProlongationLength?: number;
-  interestRateMultiplier?: number;
-  postponeFeeMultiplier?: number;
-  prolongationFeeMultiplier?: number;
+  maxProlongationLength: number;
+  interestRateMultiplier: number;
+  postponeFeeMultiplier: number;
+  prolongationFeeMultiplier: number;
 }
 
 export interface PartnerProductParams {
@@ -485,10 +540,10 @@ export interface Product {
 }
 
 export enum ProductType {
-  M1 = 'M1',
-  M3 = 'M3',
-  M6 = 'M6',
-  M12 = 'M12',
+  M1 = "M1",
+  M3 = "M3",
+  M6 = "M6",
+  M12 = "M12",
 }
 
 export interface ServiceActivated {
@@ -522,7 +577,17 @@ export interface ServiceActivationRequest {
    * Feed URL to retrieve transaction data from partner's system
    * @maxLength 256
    */
-  feedUrl?: string;
+  transactionsUrl?: string;
+  /**
+   * Feed URL to retrieve bank account data from partner's system
+   * @maxLength 256
+   */
+  accountsUrl?: string;
+  /**
+   * Feed URL to retrieve merchant's orders data from partner's system
+   * @maxLength 1024
+   */
+  ordersUrl?: string;
   /** Company information */
   company: ServiceActivationRequestCompany;
   /** Company's representative information */
@@ -556,8 +621,9 @@ export interface ServiceActivationRequestCompany {
   /**
    * Email address
    * @format email
+   * @minLength 1
    */
-  email?: string;
+  email: string;
   /**
    * Phone number in international format E.123
    * @maxLength 24
@@ -602,6 +668,19 @@ export interface ServiceActivationRequestRepresentative {
    * @minLength 1
    */
   email: string;
+  /**
+   * Phone number in international format E.123
+   * @maxLength 24
+   */
+  phone?: string;
+}
+
+export interface UpdateRepresentativeRequest {
+  /**
+   * Email address
+   * @format email
+   */
+  email?: string;
   /**
    * Phone number in international format E.123
    * @maxLength 24
