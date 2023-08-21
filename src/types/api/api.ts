@@ -108,18 +108,18 @@ export interface Financing {
   rep2ContractSignUrl?: string;
   /** Specification of financing product. Depending on the financing state it may contain requested, proposed or approved product parameters. */
   product: PartnerProductParams;
-  /** Total repayment amount. Applicable once the financing is DISBURSED. */
+  /** Total repayment amount. Applicable once the financing is APPROVED. */
   totalRepayment?: number;
-  /** Total paid amount. Applicable once the financing is DISBURSED. */
+  /** Total paid amount. Applicable once the financing is APPROVED. */
   totalPaid?: number;
-  /** Total outstanding amount. Applicable once the financing is DISBURSED. */
+  /** Total outstanding amount. Applicable once the financing is APPROVED. */
   outstandingAmount?: number;
-  /** Installment plan. Applicable once the financing is DISBURSED. */
+  /** Installment plan. Applicable once the financing is APPROVED. */
   installments?: FinancingInstallment[];
   /** Payment instruction. Applicable once the financing is DISBURSED. */
   paymentInstruction?: PaymentInstruction;
   prolongationEligible?: boolean;
-  /** Prolongation fee if applicable. Applicable once the financing is DISBURSED. */
+  /** Prolongation fee if applicable. Applicable once the financing is APPROVED. */
   prolongationFee?: number;
   /**
    * Created at
@@ -154,6 +154,8 @@ export interface FinancingInstallment {
   principal?: number;
   /** Fee */
   fee?: number;
+  /** Prolongation or postponement fee */
+  feeProlongationOrPostpone?: number;
   /** Total paid amount */
   paidTotal?: number;
   /**
@@ -481,6 +483,8 @@ export interface PartnerProductParams {
   type: ProductType;
   /** Financing amount */
   amount: number;
+  /** Fee rate percentage [%] */
+  ratePerc: number;
   /**
    * Currency as defined by ISO 4217
    * @example "CZK"
