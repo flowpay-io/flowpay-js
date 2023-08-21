@@ -108,19 +108,31 @@ export interface Financing {
   rep2ContractSignUrl?: string;
   /** Specification of financing product. Depending on the financing state it may contain requested, proposed or approved product parameters. */
   product: PartnerProductParams;
-  /** Total repayment amount. Applicable once the financing is APPROVED. */
-  totalRepayment?: number;
-  /** Total paid amount. Applicable once the financing is APPROVED. */
-  totalPaid?: number;
-  /** Total outstanding amount. Applicable once the financing is APPROVED. */
-  outstandingAmount?: number;
+  /**
+   * Total repayment amount. Applicable once the financing is APPROVED.
+   * @format decimal
+   */
+  totalRepayment?: string;
+  /**
+   * Total paid amount. Applicable once the financing is APPROVED.
+   * @format decimal
+   */
+  totalPaid?: string;
+  /**
+   * Total outstanding amount. Applicable once the financing is APPROVED.
+   * @format decimal
+   */
+  outstandingAmount?: string;
   /** Installment plan. Applicable once the financing is APPROVED. */
   installments?: FinancingInstallment[];
   /** Payment instruction. Applicable once the financing is DISBURSED. */
   paymentInstruction?: PaymentInstruction;
   prolongationEligible?: boolean;
-  /** Prolongation fee if applicable. Applicable once the financing is APPROVED. */
-  prolongationFee?: number;
+  /**
+   * Prolongation fee if applicable. Applicable once the financing is APPROVED.
+   * @format decimal
+   */
+  prolongationFee?: string;
   /**
    * Created at
    * @format ISO 8601
@@ -148,16 +160,31 @@ export interface FinancingInstallment {
    * @example "2020-12-21"
    */
   paidDate?: string;
-  /** Total installment amount */
-  total?: number;
-  /** Principal */
-  principal?: number;
-  /** Fee */
-  fee?: number;
-  /** Prolongation or postponement fee */
-  feeProlongationOrPostpone?: number;
-  /** Total paid amount */
-  paidTotal?: number;
+  /**
+   * Total installment amount
+   * @format decimal
+   */
+  total?: string;
+  /**
+   * Principal
+   * @format decimal
+   */
+  principal?: string;
+  /**
+   * Fee
+   * @format decimal
+   */
+  fee?: string;
+  /**
+   * Prolongation or postponement fee
+   * @format decimal
+   */
+  feeProlongationOrPostpone?: string;
+  /**
+   * Total paid amount
+   * @format decimal
+   */
+  paidTotal?: string;
   /**
    * Currency as defined by ISO 4217
    * @example "CZK"
@@ -185,8 +212,11 @@ export interface FinancingOverview {
   id: string;
   /** Financing state */
   state: FinancingState;
-  /** Financing principal */
-  principal?: number;
+  /**
+   * Financing principal
+   * @format decimal
+   */
+  principal?: string;
   /**
    * Currency as defined by ISO 4217
    * @example "CZK"
@@ -337,8 +367,11 @@ export interface MerchantBankAccountBalance {
    * @example "CZK"
    */
   currency: string;
-  /** Account balance amount */
-  amount: number;
+  /**
+   * Account balance amount
+   * @format decimal
+   */
+  amount: string;
   /** Account balance type */
   type?: string;
   /**
@@ -375,8 +408,11 @@ export interface MerchantBankTransaction {
    * @example "2020-12-21"
    */
   bookingDate: string;
-  /** Transaction amount in specified currency */
-  amount?: number;
+  /**
+   * Transaction amount in specified currency
+   * @format decimal
+   */
+  amount?: string;
   /** Counter party account number */
   counterAccount?: string;
   /** Counter party name */
@@ -442,17 +478,26 @@ export interface PartnerOffer {
 export interface PartnerOfferOfferProduct {
   /** Product type */
   product: ProductType;
-  /** Minimum financing amount for the given product in local currency */
-  minAmount: number;
-  /** Maximum financing amount for the given product in local currency */
-  maxAmount: number;
+  /**
+   * Minimum financing amount for the given product in local currency
+   * @format decimal
+   */
+  minAmount: string;
+  /**
+   * Maximum financing amount for the given product in local currency
+   * @format decimal
+   */
+  maxAmount: string;
   /**
    * Currency as defined by ISO 4217 (https://en.wikipedia.org/wiki/ISO_4217)
    * @example "CZK"
    */
   currency: string;
-  /** Fee rate percentage [%] */
-  ratePerc: number;
+  /**
+   * Fee rate percentage [%]
+   * @format decimal
+   */
+  ratePerc: string;
   balloon?: boolean;
   /**
    * Total number of installments
@@ -473,18 +518,27 @@ export interface PartnerOfferOfferProduct {
    * @format int32
    */
   maxProlongationLength: number;
-  interestRateMultiplier: number;
-  postponeFeeMultiplier: number;
-  prolongationFeeMultiplier: number;
+  /** @format decimal */
+  interestRateMultiplier: string;
+  /** @format decimal */
+  postponeFeeMultiplier: string;
+  /** @format decimal */
+  prolongationFeeMultiplier: string;
 }
 
 export interface PartnerProductParams {
   /** Financing product type */
   type: ProductType;
-  /** Financing amount */
-  amount: number;
-  /** Fee rate percentage [%] */
-  ratePerc: number;
+  /**
+   * Financing amount
+   * @format decimal
+   */
+  amount: string;
+  /**
+   * Fee rate percentage [%]
+   * @format decimal
+   */
+  ratePerc: string;
   /**
    * Currency as defined by ISO 4217
    * @example "CZK"
@@ -538,9 +592,12 @@ export interface Product {
   maxPostponeLength: number;
   /** @format int32 */
   maxProlongationLength: number;
-  interestRateMultiplier: number;
-  postponeFeeMultiplier: number;
-  prolongationFeeMultiplier: number;
+  /** @format decimal */
+  interestRateMultiplier?: string;
+  /** @format decimal */
+  postponeFeeMultiplier?: string;
+  /** @format decimal */
+  prolongationFeeMultiplier?: string;
 }
 
 export enum ProductType {
