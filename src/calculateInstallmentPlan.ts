@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {ProductType, PartnerOffer, PartnerOfferOfferProduct} from './types/api';
 
 import {InstallmentPlan} from './types/index';
-import {round2} from './util';
+import {isDefined, round2} from './util';
 
 export const calculateInstallmentPlan = (
   offer: PartnerOffer,
@@ -18,15 +18,16 @@ export const calculateInstallmentPlan = (
   const offeredProduct = offer.products.find(
     (it: PartnerOfferOfferProduct) => it.product === product
   );
+
   if (
     !offeredProduct ||
-    !offeredProduct.ratePerc ||
-    !offeredProduct.interestRateMultiplier ||
-    !offeredProduct.postponeFeeMultiplier ||
-    !offeredProduct.prolongationFeeMultiplier ||
-    !offeredProduct.installmentCount ||
-    !offeredProduct.installmentCount ||
-    !offeredProduct.product ||
+    !isDefined(offeredProduct.ratePerc) ||
+    !isDefined(offeredProduct.interestRateMultiplier) ||
+    !isDefined(offeredProduct.postponeFeeMultiplier) ||
+    !isDefined(offeredProduct.prolongationFeeMultiplier) ||
+    !isDefined(offeredProduct.installmentCount) ||
+    !isDefined(offeredProduct.installmentCount) ||
+    !isDefined(offeredProduct.product) ||
     typeof offeredProduct.balloon !== 'boolean'
   )
     throw new Error('Product not offered');
