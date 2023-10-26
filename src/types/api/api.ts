@@ -68,8 +68,8 @@ export interface CustomerScoringCompleted {
 }
 
 export enum CustomerScoringCompletedResult {
-  OFFER = "OFFER",
-  UNQUALIFIED = "UNQUALIFIED",
+  OFFER = 'OFFER',
+  UNQUALIFIED = 'UNQUALIFIED',
 }
 
 export interface Financing {
@@ -246,22 +246,22 @@ export interface FinancingSignatures {
 }
 
 export enum FinancingState {
-  NEW = "NEW",
-  SUBMITTED = "SUBMITTED",
-  CHECKING = "CHECKING",
-  WAIT_NEW_CONDITIONS = "WAIT_NEW_CONDITIONS",
-  APPROVED = "APPROVED",
-  CONTRACT_SENT = "CONTRACT_SENT",
-  SIGNED = "SIGNED",
-  PENDING_DISBURSEMENT = "PENDING_DISBURSEMENT",
-  DISBURSED = "DISBURSED",
-  PAID = "PAID",
-  CLIENT_REFUSED = "CLIENT_REFUSED",
-  NOT_APPROVED = "NOT_APPROVED",
-  CANCELED = "CANCELED",
-  FAILED = "FAILED",
-  OVERDUE = "OVERDUE",
-  COLLECTION = "COLLECTION",
+  NEW = 'NEW',
+  SUBMITTED = 'SUBMITTED',
+  CHECKING = 'CHECKING',
+  WAIT_NEW_CONDITIONS = 'WAIT_NEW_CONDITIONS',
+  APPROVED = 'APPROVED',
+  CONTRACT_SENT = 'CONTRACT_SENT',
+  SIGNED = 'SIGNED',
+  PENDING_DISBURSEMENT = 'PENDING_DISBURSEMENT',
+  DISBURSED = 'DISBURSED',
+  PAID = 'PAID',
+  CLIENT_REFUSED = 'CLIENT_REFUSED',
+  NOT_APPROVED = 'NOT_APPROVED',
+  CANCELED = 'CANCELED',
+  FAILED = 'FAILED',
+  OVERDUE = 'OVERDUE',
+  COLLECTION = 'COLLECTION',
 }
 
 export interface FinancingStateChanged {
@@ -282,13 +282,13 @@ export interface FinancingStateChanged {
 }
 
 export enum InstallmentInstallmentState {
-  PENDING = "PENDING",
-  PAID = "PAID",
-  PLANNED = "PLANNED",
-  OVERDUE = "OVERDUE",
-  CANCELED = "CANCELED",
-  RESCHEDULED = "RESCHEDULED",
-  PROLONGED = "PROLONGED",
+  PENDING = 'PENDING',
+  PAID = 'PAID',
+  PLANNED = 'PLANNED',
+  OVERDUE = 'OVERDUE',
+  CANCELED = 'CANCELED',
+  RESCHEDULED = 'RESCHEDULED',
+  PROLONGED = 'PROLONGED',
 }
 
 export interface KeyValue {
@@ -317,8 +317,8 @@ export interface KycVerificationReviewed {
 }
 
 export enum KycVerificationReviewedState {
-  APPROVED = "APPROVED",
-  REJECTED = "REJECTED",
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
 }
 
 export interface MerchantBankAccount {
@@ -552,10 +552,10 @@ export interface Product {
 }
 
 export enum ProductType {
-  M1 = "M1",
-  M3 = "M3",
-  M6 = "M6",
-  M12 = "M12",
+  M1 = 'M1',
+  M3 = 'M3',
+  M6 = 'M6',
+  M12 = 'M12',
 }
 
 export interface ServiceActivated {
