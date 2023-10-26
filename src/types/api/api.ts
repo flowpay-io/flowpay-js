@@ -35,6 +35,8 @@ export interface CreateFinancingRequest {
    * @example "CZ6508000000192000145399"
    */
   iban: string;
+  /** Financing purpose. */
+  purpose?: string;
 }
 
 export interface CreateFinancingRequestRepresentative {
@@ -66,8 +68,8 @@ export interface CustomerScoringCompleted {
 }
 
 export enum CustomerScoringCompletedResult {
-  OFFER = 'OFFER',
-  UNQUALIFIED = 'UNQUALIFIED',
+  OFFER = "OFFER",
+  UNQUALIFIED = "UNQUALIFIED",
 }
 
 export interface Financing {
@@ -119,7 +121,10 @@ export interface Financing {
   /** Payment instruction. Applicable once the financing is DISBURSED. */
   paymentInstruction?: PaymentInstruction;
   prolongationEligible?: boolean;
+  /** Prolongation fee if applicable. Applicable once the financing is APPROVED. */
   prolongationFee?: number;
+  /** Financing purpose. */
+  purpose?: string;
   /**
    * Created at
    * @format ISO 8601
@@ -197,6 +202,7 @@ export interface FinancingOverview {
    * @example "2020-12-21"
    */
   from?: string;
+  isActive?: boolean;
 }
 
 export interface FinancingSignatures {
@@ -240,22 +246,22 @@ export interface FinancingSignatures {
 }
 
 export enum FinancingState {
-  NEW = 'NEW',
-  SUBMITTED = 'SUBMITTED',
-  CHECKING = 'CHECKING',
-  WAIT_NEW_CONDITIONS = 'WAIT_NEW_CONDITIONS',
-  APPROVED = 'APPROVED',
-  CONTRACT_SENT = 'CONTRACT_SENT',
-  SIGNED = 'SIGNED',
-  PENDING_DISBURSEMENT = 'PENDING_DISBURSEMENT',
-  DISBURSED = 'DISBURSED',
-  PAID = 'PAID',
-  CLIENT_REFUSED = 'CLIENT_REFUSED',
-  NOT_APPROVED = 'NOT_APPROVED',
-  CANCELED = 'CANCELED',
-  FAILED = 'FAILED',
-  OVERDUE = 'OVERDUE',
-  COLLECTION = 'COLLECTION',
+  NEW = "NEW",
+  SUBMITTED = "SUBMITTED",
+  CHECKING = "CHECKING",
+  WAIT_NEW_CONDITIONS = "WAIT_NEW_CONDITIONS",
+  APPROVED = "APPROVED",
+  CONTRACT_SENT = "CONTRACT_SENT",
+  SIGNED = "SIGNED",
+  PENDING_DISBURSEMENT = "PENDING_DISBURSEMENT",
+  DISBURSED = "DISBURSED",
+  PAID = "PAID",
+  CLIENT_REFUSED = "CLIENT_REFUSED",
+  NOT_APPROVED = "NOT_APPROVED",
+  CANCELED = "CANCELED",
+  FAILED = "FAILED",
+  OVERDUE = "OVERDUE",
+  COLLECTION = "COLLECTION",
 }
 
 export interface FinancingStateChanged {
@@ -276,13 +282,18 @@ export interface FinancingStateChanged {
 }
 
 export enum InstallmentInstallmentState {
-  PENDING = 'PENDING',
-  PAID = 'PAID',
-  PLANNED = 'PLANNED',
-  OVERDUE = 'OVERDUE',
-  CANCELED = 'CANCELED',
-  RESCHEDULED = 'RESCHEDULED',
-  PROLONGED = 'PROLONGED',
+  PENDING = "PENDING",
+  PAID = "PAID",
+  PLANNED = "PLANNED",
+  OVERDUE = "OVERDUE",
+  CANCELED = "CANCELED",
+  RESCHEDULED = "RESCHEDULED",
+  PROLONGED = "PROLONGED",
+}
+
+export interface KeyValue {
+  key: string;
+  value: string;
 }
 
 export interface KycStarted {
@@ -306,8 +317,8 @@ export interface KycVerificationReviewed {
 }
 
 export enum KycVerificationReviewedState {
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
 }
 
 export interface MerchantBankAccount {
@@ -434,8 +445,6 @@ export interface PartnerOffer {
   id: string;
   /** Available financing products */
   products: PartnerOfferOfferProduct[];
-  /** A reason if the customer is not eligible for an offer */
-  reason?: string;
 }
 
 export interface PartnerOfferOfferProduct {
@@ -543,10 +552,10 @@ export interface Product {
 }
 
 export enum ProductType {
-  M1 = 'M1',
-  M3 = 'M3',
-  M6 = 'M6',
-  M12 = 'M12',
+  M1 = "M1",
+  M3 = "M3",
+  M6 = "M6",
+  M12 = "M12",
 }
 
 export interface ServiceActivated {
@@ -591,6 +600,11 @@ export interface ServiceActivationRequest {
    * @maxLength 1024
    */
   ordersUrl?: string;
+  /**
+   * Redirect URL to navigate customer to partner's platform UI
+   * @maxLength 1024
+   */
+  redirectUrl?: string;
   /** Company information */
   company: ServiceActivationRequestCompany;
   /** Company's representative information */
