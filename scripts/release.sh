@@ -1,10 +1,19 @@
-if [ $# -eq 0 ]; then
-    echo "Error: Please provide tag name for the release"
-    exit 1
-fi
+# check prerequisities
+commands=("jq" "gh")
+for command in "${commands[@]}"
+do
+    if ! command -v "$command" &> /dev/null
+    then
+        echo "$command is not installed."
+        exit 1
+    fi
+done
 
-tag=$1
+# get the current package version 
+version=$(jq -r '.version' package.json)
 
-gh release create "$tag"
+# create a tag and release for the current version in Github
+gh release create "$version"
 
-npm-publish
+# publish current version to npmjs.com
+npm publish
