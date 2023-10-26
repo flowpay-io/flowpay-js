@@ -7,4 +7,4 @@ tag=$1
 
 gh release create "$tag"
 
-npm-publish 
+npm-publish
