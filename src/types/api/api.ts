@@ -250,6 +250,7 @@ export enum FinancingState {
   NEW = "NEW",
   SUBMITTED = "SUBMITTED",
   CHECKING = "CHECKING",
+  SENT_FOR_APPROVING = "SENT_FOR_APPROVING",
   WAIT_NEW_CONDITIONS = "WAIT_NEW_CONDITIONS",
   APPROVED = "APPROVED",
   CONTRACT_SENT = "CONTRACT_SENT",
@@ -551,6 +552,11 @@ export interface PaymentInstruction {
   /** Payment amount */
   amount?: number;
   /**
+   * Currency as defined by ISO 4217
+   * @example "CZK"
+   */
+  currency?: string;
+  /**
    * Installment due date
    * @format date
    * @example "2020-12-21"
@@ -560,6 +566,8 @@ export interface PaymentInstruction {
 
 export interface Product {
   type: ProductType;
+  countries: string[];
+  currencies: string[];
   baloon?: boolean;
   /** @format int32 */
   installmentCount: number;
